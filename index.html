@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+    <h1 class="heading">Memory Game</h1>
+    <button id="btn">Restart Game</button>
+    </div>
+    <div class="background">
+        <div class="grid" >
+            <div  class="card" >
+                <img class="front-face" id="aicartoon" src="./assets/ai-generated-8670816_640.png" alt="">
+                <img class="back-face" src="./assets/smile-icon(1).png" alt="">
+            </div>
+
+            <div class="card">
+                <img class="front-face" id="panda" src="./assets/panda-8536525_640.png" alt="">
+                <img   class="back-face" src="./assets/smile-icon(1).png" alt="">
+            </div>
+
+            <div class="card">
+                <img class="front-face" id="ghost" src="./assets/ghost-8250317_640.png" alt="">
+                <img   class="back-face" src="./assets/smile-icon(1).png" alt="">
+            </div>
+
+            <div  class="card">
+                <img  class="front-face" id="mouse" src="./assets/mouse-8030076_640.jpg" alt="">
+                <img  class="back-face" src="./assets/smile-icon(1).png" alt="">
+            </div>
+            <div class="card">
+                <img   class="front-face" id="penguin" src="./assets/penguin-158551_640.png" alt="">
+                <img  class="back-face" src="./assets/smile-icon(1).png" alt="">
+            </div>
+
+            <div class="card">
+                <img  class="front-face" id="rbcartton"src="./assets/rb_133011.png" alt="">
+                <img  class="back-face" src="./assets/smile-icon(1).png" alt="">
+            </div>
+
+            <div class="card">
+                <img  class="front-face" id="aicartoon" src="./assets/ai-generated-8670816_640.png" alt="">
+                <img  class="back-face" src="./assets/smile-icon(1).png" alt="">
+            </div>
+
+            <div class="card">
+                <img  class="front-face" id="ghost" src="./assets/ghost-8250317_640.png" alt="">
+                <img  class="back-face" src="./assets/smile-icon(1).png" alt="">
+            </div>
+
+            <div class="card">
+                <img   class="front-face" id="mouse" src="./assets/mouse-8030076_640.jpg" alt="">
+                <img  class="back-face" src="./assets/smile-icon(1).png" alt="">
+            </div>
+
+            <div class="card">
+                <img  class="front-face"  id="panda" src="./assets/panda-8536525_640.png" alt="">
+                <img  class="back-face" src="./assets/smile-icon(1).png" alt="">
+            </div>
+
+            <div class="card">
+                <img  class="front-face" id="penguin" src="./assets/penguin-158551_640.png" alt="">
+                <img  class="back-face"src="./assets/smile-icon(1).png" alt="">
+            </div>
+
+            <div class="card">
+                <img class="front-face"  id="rbcartton" src="./assets/rb_133011.png" alt="">
+                <img  class="back-face" src="./assets/smile-icon(1).png" alt="">
+            </div>
+        </div>
+    </div>
+    <script>
+        // First, let's track if this is first or second card
+let isFirstCard = true;
+let firstCardId = '';
+let firstCardElement = null;
+let gameover='';
+
+function flipCard(card) {
+    // Don't let same card be clicked twice
+    if (card.classList.contains('flipped')) {
+        return;
+    }
+    
+    // Show the card by adding flipped class
+    card.classList.add('flipped');
+    
+    // If this is first card
+    if (isFirstCard) {
+        firstCardId = card.querySelector('.front-face').id;
+        firstCardElement = card;
+        isFirstCard = false;
+        return;
+    }
+    
+    // This is second card
+    let secondCardId = card.querySelector('.front-face').id;
+    
+    // Check if cards match
+    if (firstCardId === secondCardId) {
+        // It's a match! Just leave them flipped
+        isFirstCard = true;
+    } else {
+        // Not a match, flip them back after 1 second
+        setTimeout(() => {
+            card.classList.remove('flipped');
+            firstCardElement.classList.remove('flipped');
+            isFirstCard = true;
+        }, 1000);
+    }
+   
+}
+
+// Add click handlers to all cards
+const cards = document.querySelectorAll('.card');
+cards.forEach(card => {
+    card.addEventListener('click', () => flipCard(card));
+});
+
+// Shuffle function: Randomize the order of the cards using CSS `order` property
+function shuffleCards() {
+    const cardArray = Array.from(cards); // Convert NodeList to Array
+    cardArray.forEach(card => {
+        // Assign a random order value to each card
+        card.style.order = Math.floor(Math.random() * cardArray.length);
+    });
+}
+
+// Restart button functionality
+const btn = document.getElementById("btn");
+
+btn.addEventListener("click", function () {
+    // Reset the flipped cards
+    cards.forEach(card => {
+        card.classList.remove('flipped');
+    });
+
+    // Shuffle the cards when "Restart Game" is clicked
+    shuffleCards();
+});     
+          </script>
+          </body>
+          </html>
