@@ -83,7 +83,7 @@ transform:rotateY(180deg) ;
    align-items: center;
 }
 
-/* mobile device */
+/* mobile  */
 @media (max-width: 767px) {
     .background {
         padding: 2rem 1rem;
